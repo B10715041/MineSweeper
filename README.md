@@ -26,11 +26,11 @@ The game is designed to run in both Windows and Linux console environments. It u
 
 ### Windows
 - Uses the Windows Console API for rendering.
-- Compiled with [Your Windows Compiler Information].
+- Compiled with g++.exe (Rev6, Built by MSYS2 project) 13.1.0.
 
 ### Linux
 - Uses ANSI escape codes for console manipulation.
-- Compiled with GCC version [Your Linux GCC Version].
+- Compiled with g++ (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0.
 
 ## Building the Project
 To build the project, use the provided Makefile:
