@@ -1,3 +1,4 @@
+#ifndef _WIN32
 #pragma once
 #include <termios.h>
 #include <unistd.h>
@@ -19,3 +20,4 @@ public:
     }
 };
 
+#endif

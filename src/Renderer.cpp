@@ -82,6 +82,8 @@ void Renderer::displayBoardWindows(int cursorX, int cursorY) const {
             pos.Y = y;
             SetConsoleCursorPosition(hConsole, pos);
 
+            const Cell& cell = board.getCell(y, x);
+
             if (cell.isRevealed()) {
                 if (cell.isMine()) {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
