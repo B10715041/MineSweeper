@@ -3,6 +3,14 @@
 Renderer::Renderer(const Board& board) : board(board) {}
  
 void Renderer::displayBoard(int cursorX, int cursorY) const {
+    #ifdef _WIN32
+    displayBoardWindows(cursorX, cursorY);
+    #else
+    displayBoardLinux(cursorX, cursorY);
+    #endif
+}
+
+void Renderer::displayBoardLinux(int cursorX, int cursorY) const {
     // Clear the screen and move the cursor to the top-left corner
     std::cout << "\033[2J\033[H";
 
@@ -60,4 +68,46 @@ void Renderer::displayDebugBoard() const {
 void Renderer::displayMessage(const std::string& message) const {
     std::cout << message << std::endl;
 }
+
+
+#ifdef _WIN32
+void Renderer::displayBoardWindows(int cursorX, int cursorY) const {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD pos;
+    system("cls");  // Clear the console
+
+    for (int y = 0; y < board.getHeight(); ++y) {
+        for (int x = 0; x < board.getWidth(); ++x) {
+            pos.X = x * 2;
+            pos.Y = y;
+            SetConsoleCursorPosition(hConsole, pos);
+
+            if (cell.isRevealed()) {
+                if (cell.isMine()) {
+                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+                    std::cout << "* ";
+                } else {
+                    int adjacentMines = cell.adjacentMines();
+                    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN); // Example color
+                    std::cout << (adjacentMines > 0 ? std::to_string(adjacentMines) : " ") << " ";
+                }
+            } else if (cell.isFlagged()) {
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+                std::cout << "F ";
+            } else {
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                std::cout << ". ";
+            }
+
+            // Reset to default color
+            SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+        }
+        std::cout << std::endl;
+    }
+    // Reset cursor position after rendering
+    pos.X = 0;
+    pos.Y = board.getHeight();
+    SetConsoleCursorPosition(hConsole, pos);
+}
+#endif
 
