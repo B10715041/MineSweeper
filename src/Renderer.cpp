@@ -71,6 +71,9 @@ void Renderer::displayMessage(const std::string& message) const {
 
 
 #ifdef _WIN32
+
+#include <cstdint>
+
 void Renderer::displayBoardWindows(int cursorX, int cursorY) const {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD pos;
