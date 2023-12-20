@@ -16,13 +16,14 @@ void Renderer::displayBoard(int cursorX, int cursorY) const {
 
             if (board.getCell(y, x).isRevealed()) {
                 if (board.getCell(y, x).isMine()) {
-                    std::cout << "* ";
+                    std::cout << "\033[31m*\033[0m"; // Red for mines
                 } else {
                     int adjMines = board.getCell(y, x).adjacentMines();
-                    std::cout << (adjMines > 0 ? std::to_string(adjMines) : " ") << " ";
+                    std::cout << "\033[" << 31 + adjMines << "m"; // Different colors
+                    std::cout << (adjMines > 0 ? std::to_string(adjMines) : " ") << "\033[0m ";
                 }
             } else if (board.getCell(y, x).isFlagged()) {
-                std::cout << "F ";
+                std::cout << "\033[31mF\033[0m "; // Red for flags
             } else {
                 std::cout << ". ";
             }

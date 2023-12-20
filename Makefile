@@ -4,7 +4,7 @@
 CC = g++
 
 # Compiler flags
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g #-fno-stack-protector
 
 # Source directory
 SRC_DIR = src

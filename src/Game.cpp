@@ -15,7 +15,7 @@ void Game::run() {
             case 'w':
             case 'a':
             case 's':
-            case'd':
+            case 'd':
                 moveCursor(input);
                 break;
             case '\n':
@@ -32,7 +32,7 @@ void Game::run() {
     }
     renderer.displayBoard(cursorX, cursorY); // Display the final state of the board
     renderer.displayMessage(isGameOver ? "Game Over!" : "Congratulations! You won!");
-}
+} 
 
 void Game::update() {
     // Here, you might update game state, check for win/lose conditions, etc.
