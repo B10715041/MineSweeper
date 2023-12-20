@@ -84,6 +84,11 @@ void Renderer::displayBoardWindows(int cursorX, int cursorY) const {
 
             const Cell& cell = board.getCell(y, x);
 
+            // Highlight cursor position
+            if (x == cursorX && y == cursorY) {
+                SetConsoleTextAttribute(hConsole, BACKGROUND_BLUE | BACKGROUND_INTENSITY);
+            }
+
             if (cell.isRevealed()) {
                 if (cell.isMine()) {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
