@@ -1,13 +1,15 @@
 #include "Game.h"
 
 Game::Game(int width, int height, int mines)
-    : board(width, height, mines), 
-      renderer(board), 
-      inputHandler(board), 
+    : board(width, height, mines),
+      renderer(board),
+      inputHandler(board),
       isGameOver(false),
       cursorX(0), cursorY(0) {}
 
 void Game::run() {
+    bool firstAction = true;
+
     while (!isGameOver) {
         renderer.displayBoard(cursorX, cursorY);
         char input = inputHandler.handleInput();
@@ -19,7 +21,12 @@ void Game::run() {
                 moveCursor(input);
                 break;
             case '\n':
-                board.revealCell(cursorX, cursorY);
+                if (firstAction) {
+                    board.firstClick(cursorX, cursorY);
+                    firstAction = false;
+                } else {
+                    board.revealCell(cursorX, cursorY);
+                }
                 break;
             case 'f':
                 board.toggleFlag(cursorX, cursorY);
@@ -31,8 +38,8 @@ void Game::run() {
         checkGameOver();
     }
     renderer.displayBoard(cursorX, cursorY); // Display the final state of the board
-    renderer.displayMessage(isGameOver ? "Game Over!" : "Congratulations! You won!");
-} 
+    renderer.displayMessage(!board.isGameWon()? "Game Over!" : "Congratulations! You won!");
+}
 
 void Game::update() {
     // Here, you might update game state, check for win/lose conditions, etc.

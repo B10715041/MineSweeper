@@ -4,10 +4,31 @@
 #include <iostream>
 
 Board::Board(int width, int height, int mines):
-        width(width), height(height), mineCount(mines), gameOver(false) {
+        width(width), height(height), mineCount(mines), gameOver(false), minesPlaced(false) {
     cells.resize(height, std::vector<Cell>(width));
-    placeMines();
-    calculateAdjacentMines();
+    /* placeMines(); */
+    /* calculateAdjacentMines(); */
+}
+
+void Board::firstClick(int x, int y) {
+    if (!minesPlaced) {
+        placeMinesDeferred(x, y);
+        calculateAdjacentMines();
+        minesPlaced = true;
+    }
+    revealCell(x, y);
+}
+
+void Board::placeMinesDeferred(int firstClickX, int firstClickY) {
+    srand(time(nullptr));
+    for (int i = 0; i < mineCount; ++i) {
+        int x, y;
+        do {
+            x = rand() % width;
+            y = rand() % height;
+        } while (cells[y][x].isMine() || (x >= firstClickX - 1 && x <= firstClickX + 1 && y >= firstClickY - 1 && y <= firstClickY + 1));
+        cells[y][x].setMine(true);
+    }
 }
 
 void Board::placeMines() {
@@ -121,3 +142,5 @@ int Board::getHeight() const {
 const Cell &Board::getCell(int y, int x) const {
     return cells[y][x];
 }
+
+

@@ -16,7 +16,7 @@ void Renderer::displayBoard(int cursorX, int cursorY) const {
 
             if (board.getCell(y, x).isRevealed()) {
                 if (board.getCell(y, x).isMine()) {
-                    std::cout << "\033[31m*\033[0m"; // Red for mines
+                    std::cout << "\033[31m*\033[0m "; // Red for mines
                 } else {
                     int adjMines = board.getCell(y, x).adjacentMines();
                     std::cout << "\033[" << 31 + adjMines << "m"; // Different colors
@@ -35,7 +35,27 @@ void Renderer::displayBoard(int cursorX, int cursorY) const {
         }
         std::cout << std::endl;
     }
+
+    displayDebugBoard();
 }
+
+void Renderer::displayDebugBoard() const {
+    std::cout << std::endl << std::endl;
+    for (int y = 0; y < board.getHeight(); ++y) {
+        for (int x = 0; x < board.getWidth(); ++x) {
+            const Cell& cell = board.getCell(y, x);
+
+            // Displaying the actual mines
+            if (cell.isMine()) {
+                std::cout << "\033[31m*\033[0m "; // Red asterisk for mines
+            } else {
+                std::cout << ". "; // Placeholder for non-mine cells
+            }
+        }
+        std::cout << std::endl;
+    }
+}
+
 
 void Renderer::displayMessage(const std::string& message) const {
     std::cout << message << std::endl;
