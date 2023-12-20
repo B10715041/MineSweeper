@@ -5,7 +5,7 @@
 class Renderer {
 public:
     Renderer(const Board& board);
-    void displayBoard() const;
+    void displayBoard(int cursorX, int cursorY) const;
     void displayMessage(const std::string& message) const;
 
 private:

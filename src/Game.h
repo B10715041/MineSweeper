@@ -14,7 +14,10 @@ private:
     InputHandler inputHandler;
     bool isGameOver;
 
+    int cursorX, cursorY;
+
     void update();
     void checkGameOver();
+    void moveCursor(char direction);
 };
 

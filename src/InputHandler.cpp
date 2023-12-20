@@ -1,14 +1,20 @@
 #include "InputHandler.h"
+#include "TerminalUtils.h"
 #include <iostream>
 #include <sstream>
 
 InputHandler::InputHandler(Board& board) : board(board) {}
 
-void InputHandler::handleInput() const {
-    std::string input;
-    std::cout << "Enter command (e.g., 'r 3 4' to reveal cell at 3,4 or 'f 3 4' to flag cell): ";
-    std::getline(std::cin, input);
-    processCommand(input);
+char InputHandler::handleInput() const {
+    /* std::string input; */
+    /* std::cout << "Enter command (e.g., 'r 3 4' to reveal cell at 3,4 or 'f 3 4' to flag cell): "; */
+    /* std::getline(std::cin, input); */
+    /* processCommand(input); */
+    TerminalUtils::enableRawMode();
+    char ch;
+    read(STDIN_FILENO, &ch, 1);
+    TerminalUtils::disableRawMode();
+    return ch;
 }
 
 void InputHandler::processCommand(const std::string& command) const {

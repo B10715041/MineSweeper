@@ -5,7 +5,7 @@
 class InputHandler {
 public:
     InputHandler(Board& board);
-    void handleInput() const;
+    char handleInput() const;
 
 private:
     Board& board;
