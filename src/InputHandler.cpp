@@ -14,6 +14,7 @@ char InputHandler::handleInput() const {
 }
 
 #ifdef _WIN32
+#include <windows.h>
 char InputHandler::handleWindowsInput() const {
     HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE); 
     INPUT_RECORD irInBuf[128]; 

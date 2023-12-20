@@ -84,25 +84,23 @@ void Renderer::displayBoardWindows(int cursorX, int cursorY) const {
 
             const Cell& cell = board.getCell(y, x);
 
-            // Highlight cursor position
-            if (x == cursorX && y == cursorY) {
-                SetConsoleTextAttribute(hConsole, BACKGROUND_BLUE | BACKGROUND_INTENSITY);
-            }
+            // Check if this is the cursor position
+            int16_t color = (x == cursorX && y == cursorY)? (BACKGROUND_BLUE | BACKGROUND_INTENSITY): 0;
 
             if (cell.isRevealed()) {
                 if (cell.isMine()) {
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | color);
                     std::cout << "* ";
                 } else {
                     int adjacentMines = cell.adjacentMines();
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN); // Example color
+                    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | color); // Example color
                     std::cout << (adjacentMines > 0 ? std::to_string(adjacentMines) : " ") << " ";
                 }
             } else if (cell.isFlagged()) {
-                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY | color);
                 std::cout << "F ";
             } else {
-                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | color);
                 std::cout << ". ";
             }
 
