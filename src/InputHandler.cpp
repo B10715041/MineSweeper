@@ -29,7 +29,11 @@ char InputHandler::handleWindowsInput() const {
             if (irInBuf[i].EventType == KEY_EVENT && irInBuf[i].Event.KeyEvent.bKeyDown) {
                 // Process the key event (irInBuf[i].Event.KeyEvent)
                 // Return the character or control key pressed
-                return irInBuf[i].Event.KeyEvent.uChar.AsciiChar;
+                char ch = irInBuf[i].Event.KeyEvent.uChar.AsciiChar;
+                if (irInBuf[i].Event.KeyEvent.wVirtualKeyCode == VK_RETURN) {
+                    ch = '\n';
+                }
+                return ch;
             }
         }
     }
