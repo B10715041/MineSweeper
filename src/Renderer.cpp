@@ -1,7 +1,7 @@
 #include "Renderer.h"
 
 Renderer::Renderer(const Board& board) : board(board) {}
- 
+
 void Renderer::displayBoard(int cursorX, int cursorY) const {
     #ifdef _WIN32
     displayBoardWindows(cursorX, cursorY);
@@ -64,10 +64,11 @@ void Renderer::displayDebugBoard() const {
     }
 }
 
-
 void Renderer::displayMessage(const std::string& message) const {
     std::cout << message << std::endl;
 }
+
+
 
 
 #ifdef _WIN32

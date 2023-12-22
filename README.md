@@ -1,5 +1,7 @@
 # Minesweeper Game
 
+This Minesweeper game was developed as a personal project to get familiar with Neovim plugins as well as Git operations. It serves as a playground for improving my software development workflow and understanding version control nuances.
+
 ## Overview
 This project is a console-based implementation of the classic Minesweeper game. It features a grid of cells, some of which contain mines. The player navigates the grid, revealing cells while avoiding mines.
 
